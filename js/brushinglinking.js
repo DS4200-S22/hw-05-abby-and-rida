@@ -134,8 +134,8 @@ d3.csv("data/iris.csv").then((data) => {
     // [ (bottom left)[x1 , y1] , (top right)[x2 , y2] ]
     extent = brushEvent.selection
 
-
     //TODO: Give bold outline to all points within the brush region in Scatterplot1
+    myCircles1.classed("brushed", (d) => isBrushed(extent, x1(d[xKey1]), y1(d[yKey1]));
 
     //TODO: Give bold outline to all points in Scatterplot2 corresponding to points within the brush region in Scatterplot1
 
