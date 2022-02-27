@@ -2,3 +2,11 @@
 body {
   font-family: Arial;
 }
+
+.brushed {
+  opacity: 1 !important;
+  stroke: black;
+  stroke-width: 1px;
+}
+
+// https://www.d3-graph-gallery.com/graph/interactivity_brush.html
