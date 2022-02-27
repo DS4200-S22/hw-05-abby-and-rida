@@ -97,8 +97,13 @@ d3.csv("data/iris.csv").then((data) => {
                               .style("opacity", 0.5);
 
     //TODO: Define a brush (call it brush1)
-
+    // Code modeled after https://www.d3-graph-gallery.com/graph/interactivity_brush.html
+    brush1 = d3.brush()
+      .extent([[0, 0], [width, height]])
+      .on("start brush", updateChart1)
+    
     //TODO: Add brush1 to svg1
+    svg1.call(brush1)
     
   }
 
