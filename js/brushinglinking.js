@@ -240,6 +240,7 @@ d3.csv("data/iris.csv").then((data) => {
    .append("rect") // appends a rectangle to svg 1 for each row in databar
      .attr("x", (d,i) => xScale3(i)) // setting x position for the rectangles based on the data and what row we are on
      //, return x scale of the row we are on
+     .style("fill", (d) => color(d.species))
      .attr("y", (d) => yScale3(d.count)) // setting y position based on yscale of the score
      .attr("height", (d) => (height - margin.bottom) - yScale3(d.count)) // set height for the bars
      .attr("width", xScale3.bandwidth()) // set width for the bars, bandwith allows d3 to go through number of categories and space and 
