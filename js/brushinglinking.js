@@ -211,12 +211,12 @@ d3.csv("data/iris.csv").then((data) => {
     myCircles1.classed("brushed", (d) => { return isBrushed(extent, x1(d[xKey1]), y1(d[yKey1])); })
 
     //TODO: Give bold outline to all points in Scatterplot2 corresponding to points within the brush region in Scatterplot1
+    myCircles2.classed("brushed", (d) => { return isBrushed(extent, x1(d[xKey1]), y1(d[yKey1])); })
 
   }
 
   // Call when Scatterplot2 is brushed 
   function updateChart2(brushEvent) {
-
 
     //TODO: Find coordinates of brushed region 
     // extent is an array holding the coordinates of each corner of a selection
@@ -224,11 +224,14 @@ d3.csv("data/iris.csv").then((data) => {
     let extent = brushEvent.selection;
 
     //TODO: Start an empty set that you can store names of selected species in 
+    let species = []
 
     //TODO: Give bold outline to all points within the brush region in Scatterplot2 & collected names of brushed species
     myCircles2.classed("brushed", (d) => { return isBrushed(extent, x2(d[xKey2]), y2(d[yKey2])); })
+    // d["species"]
 
     //TODO: Give bold outline to all points in Scatterplot1 corresponding to points within the brush region in Scatterplot
+    myCircles1.classed("brushed", (d) => { return isBrushed(extent, x2(d[xKey2]), y2(d[yKey2])); })
 
     //TODO: Give bold outline to all bars in bar chart with corresponding to species selected by Scatterplot2 brush
 
