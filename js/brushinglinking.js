@@ -6,6 +6,7 @@ const height = 650; //- margin.top - margin.bottom;
 // Append svg object to the body of the page to house Scatterplot1
 const svg1 = d3.select("#vis-holder")
   .append("svg")
+  .attr("class", "holder")
   .attr("width", width - margin.left - margin.right)
   .attr("height", height - margin.top - margin.bottom)
   .attr("viewBox", [0, 0, width, height]);
@@ -20,7 +21,7 @@ let myCircles2;
 let bars;
 
 // append svg object to the body of the page to house Scatterplot2 (call it svg2)
-const svg2 = d3.select("body")
+const svg2 = d3.select("#vis-holder")
   .append("svg")
   .attr("class", "holder")
   .attr("width", width - margin.left - margin.right)
@@ -29,7 +30,7 @@ const svg2 = d3.select("body")
 
 
 // append svg object to the body of the page to house bar chart 
-const svg3 = d3.select("body")
+const svg3 = d3.select("#vis-holder")
   .append("svg")
   .attr("class", "holder")
   .attr("width", width - margin.left - margin.right)
@@ -121,7 +122,8 @@ d3.csv("data/iris.csv").then((data) => {
     // Code modeled after https://www.d3-graph-gallery.com/graph/interactivity_brush.html
     brush1 = d3.brush()
       .extent([[0, 0], [width, height]])
-      .on("start brush", updateChart1)
+      .on("start", clear)
+      .on("brush", updateChart1)
 
     // Add brush1 to svg1
     svg1.call(brush1)
@@ -192,7 +194,8 @@ d3.csv("data/iris.csv").then((data) => {
     // Code modeled after https://www.d3-graph-gallery.com/graph/interactivity_brush.html
     brush2 = d3.brush()
       .extent([[0, 0], [width, height]])
-      .on("start brush", updateChart2)
+      .on("start", clear)
+      .on("brush", updateChart2)
 
     // Add brush2 to svg2
     svg2.call(brush2)
@@ -252,15 +255,13 @@ d3.csv("data/iris.csv").then((data) => {
   //Brushing Code---------------------------------------------------------------------------------------------
 
   // Call to removes existing brushes 
-  //TODO: FIX
   function clear() {
-    svg1.call(brush1.move, null);
-    svg2.call(brush2.move, null);
+    svg1.call(d3.brush().clear);
+    svg2.call(d3.brush().clear);
   }
 
   // Call when Scatterplot1 is brushed 
   function updateChart1(brushEvent) {
-
     // Find coordinates of brushed region 
     // extent is an array holding the coordinates of each corner of a selection
     // [ (bottom left)[x1 , y1] , (top right)[x2 , y2] ]
@@ -276,7 +277,6 @@ d3.csv("data/iris.csv").then((data) => {
 
   // Call when Scatterplot2 is brushed 
   function updateChart2(brushEvent) {
-
     // Find coordinates of brushed region 
     // extent is an array holding the coordinates of each corner of a selection
     // [ (bottom left)[x1 , y1] , (top right)[x2 , y2] ]
