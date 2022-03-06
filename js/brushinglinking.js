@@ -234,7 +234,7 @@ d3.csv("data/iris.csv").then((data) => {
       .attr("font-size", '20px');
 
 
-    svg3.selectAll(".bar") // select everything from the class bar for svg 1
+    bars = svg3.selectAll(".bar") // select everything from the class bar for svg 1
       .data(databar) // binds data to empty selection
       .enter()  // makes a placeholder svg for each row in data1
       .append("rect") // appends a rectangle to svg 1 for each row in databar
@@ -245,6 +245,14 @@ d3.csv("data/iris.csv").then((data) => {
       .attr("height", (d) => (height - margin.bottom) - yScale3(d.count)) // set height for the bars
       .attr("width", xScale3.bandwidth()) // set width for the bars, bandwith allows d3 to go through number of categories and space and 
     // choose appropriate bandwith
+
+    // Define a brush (call it brush2)
+    brush3 = d3.brush()
+      .extent([[0, 0], [width, height]])
+      .on("start brush", updateChart3)
+
+    // Add brush2 to svg2
+    svg2.call(brush2)
 
 
   }
@@ -288,12 +296,13 @@ d3.csv("data/iris.csv").then((data) => {
     // Give bold outline to all points within the brush region in Scatterplot2
     // TODO: collected names of brushed species
     myCircles2.classed("brushed", (d) => { return isBrushed(extent, x2(d[xKey2]), y2(d[yKey2])); })
-    // d["species"]
+    d["species"]
 
     // Give bold outline to all points in Scatterplot1 corresponding to points within the brush region in Scatterplot
     myCircles1.classed("brushed", (d) => { return isBrushed(extent, x2(d[xKey2]), y2(d[yKey2])); })
 
     //TODO: Give bold outline to all bars in bar chart with corresponding to species selected by Scatterplot2 brush
+    bars.classed("brushed", (d) => { return isBrushed(extent, x1(d[xKey1]), y1(d[yKey1])); })
 
   }
 
