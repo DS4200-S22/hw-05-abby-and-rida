@@ -207,7 +207,7 @@ d3.csv("data/iris.csv").then((data) => {
   yKey3 = "count";
 
   // TODO: Find the maximum y value provided within 'data1' by going through scores column
-  let maxY3 = d3.max(databar, function(d) { return d.score; });
+  let maxY3 = d3.max(databar, function(d) { return d.count; });
 
   // TODO: For y value, lists what pixel value to plot, linearly scales data 
   let yScale3 = d3.scaleLinear()
@@ -230,7 +230,7 @@ d3.csv("data/iris.csv").then((data) => {
   svg3.append("g")
       .attr("transform", `translate(0,${height - margin.bottom})`) 
       .call(d3.axisBottom(xScale3) // gives the x axis scale
-              .tickFormat(i => databar[i].name))  // use .tickformat to add specific labels to each tick mark
+              .tickFormat(i => databar[i].species))  // use .tickformat to add specific labels to each tick mark
       .attr("font-size", '20px'); 
 
 
@@ -240,8 +240,8 @@ d3.csv("data/iris.csv").then((data) => {
    .append("rect") // appends a rectangle to svg 1 for each row in databar
      .attr("x", (d,i) => xScale3(i)) // setting x position for the rectangles based on the data and what row we are on
      //, return x scale of the row we are on
-     .attr("y", (d) => yScale3(d.score)) // setting y position based on yscale of the score
-     .attr("height", (d) => (height - margin.bottom) - yScale3(d.score)) // set height for the bars
+     .attr("y", (d) => yScale3(d.count)) // setting y position based on yscale of the score
+     .attr("height", (d) => (height - margin.bottom) - yScale3(d.count)) // set height for the bars
      .attr("width", xScale3.bandwidth()) // set width for the bars, bandwith allows d3 to go through number of categories and space and 
      // choose appropriate bandwith
 
