@@ -20,6 +20,11 @@ let myCircles2;
 let bars;
 
 //TODO: append svg object to the body of the page to house Scatterplot2 (call it svg2)
+const svg2 = d3.select("body")
+  .append("svg")
+  .attr("width", width - margin.left - margin.right)
+  .attr("height", height - margin.top - margin.bottom)
+  .attr("viewBox", [0, 0, width, height]);
 
 //TODO: append svg object to the body of the page to house bar chart 
 
@@ -109,7 +114,51 @@ d3.csv("data/iris.csv").then((data) => {
 
   //TODO: Scatterplot 2 (show Sepal width on x-axis and Petal width on y-axis)
   {
-    // Scatterplot2 code here 
+    xKey2 = "Sepal_Width";
+    yKey2 = "Petal_Width";
+
+    // Find max x
+    let maxX2 = d3.max(data, (d) => { return d[xKey2]; });
+
+    // Create X scale
+    x2 = d3.scaleLinear()
+      .domain([0, maxX2])
+      .range([margin.left, width - margin.right]);
+
+    // Add x axis 
+    svg1.append("g")
+      .attr("transform", `translate(0,${height - margin.bottom})`)
+      .call(d3.axisBottom(x2))
+      .attr("font-size", '20px')
+      .call((g) => g.append("text")
+        .attr("x", width - margin.right)
+        .attr("y", margin.bottom - 4)
+        .attr("fill", "black")
+        .attr("text-anchor", "end")
+        .text(xKey2)
+      );
+
+    // Finx max y 
+    let maxY2 = d3.max(data, (d) => { return d[yKey2]; });
+
+    // Create Y scale
+    y2 = d3.scaleLinear()
+      .domain([0, maxY2])
+      .range([height - margin.bottom, margin.top]);
+
+    // Add y axis 
+    svg1.append("g")
+      .attr("transform", `translate(${margin.left}, 0)`)
+      .call(d3.axisLeft(y2))
+      .attr("font-size", '20px')
+      .call((g) => g.append("text")
+        .attr("x", 0)
+        .attr("y", margin.top)
+        .attr("fill", "black")
+        .attr("text-anchor", "end")
+        .text(yKey2)
+      );
+
   }
 
   //TODO: Barchart with counts of different species
