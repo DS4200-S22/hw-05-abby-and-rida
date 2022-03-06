@@ -11,17 +11,17 @@ const svg1 = d3.select("#vis-holder")
   .attr("viewBox", [0, 0, width, height]);
 
 // Initialize brush for Scatterplot1 and points. We will need these to be global. 
+//TODO: Initialize brush for Scatterplot2 and points. We will need these to be global.
+//TODO: Initialize bars. We will need these to be global. 
 let brush1;
+let brush2;
 let myCircles1;
+let myCircles2;
+let bars;
 
 //TODO: append svg object to the body of the page to house Scatterplot2 (call it svg2)
 
-//TODO: Initialize brush for Scatterplot2 and points. We will need these to be global.
-
 //TODO: append svg object to the body of the page to house bar chart 
-
-//TODO: Initialize bars. We will need these to be global. 
-
 
 // Define color scale
 const color = d3.scaleOrdinal()
@@ -135,7 +135,7 @@ d3.csv("data/iris.csv").then((data) => {
     let extent = brushEvent.selection;
 
     //TODO: Give bold outline to all points within the brush region in Scatterplot1
-    myCircles1.classed("brushed", (d) => {return isBrushed(extent, x1(d[xKey1]), y1(d[yKey1]));})
+    myCircles1.classed("brushed", (d) => { return isBrushed(extent, x1(d[xKey1]), y1(d[yKey1])); })
 
     //TODO: Give bold outline to all points in Scatterplot2 corresponding to points within the brush region in Scatterplot1
 
