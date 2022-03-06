@@ -227,14 +227,14 @@ d3.csv("data/iris.csv").then((data) => {
      .attr("font-size", '20px'); 
 
   // TODO: Adds the x axis to the svg
-  svg1.append("g")
+  svg3.append("g")
       .attr("transform", `translate(0,${height - margin.bottom})`) 
       .call(d3.axisBottom(xScale3) // gives the x axis scale
               .tickFormat(i => databar[i].name))  // use .tickformat to add specific labels to each tick mark
       .attr("font-size", '20px'); 
 
 
-  svg1.selectAll(".bar") // select everything from the class bar for svg 1
+  svg3.selectAll(".bar") // select everything from the class bar for svg 1
    .data(databar) // binds data to empty selection
    .enter()  // makes a placeholder svg for each row in data1
    .append("rect") // appends a rectangle to svg 1 for each row in databar
