@@ -36,6 +36,13 @@ const svg2 = d3.select("body")
     .attr("height", height - margin.top - margin.bottom)
     .attr("viewBox", [0, 0, width, height]);
 
+// Hardcoded barchart data
+  const databar = [
+  {species: 'setosa', count: 50},
+  {species: 'versicolor', count: 50},
+  {species: 'virginica', count: 50},
+];
+
 
 // Define color scale
 const color = d3.scaleOrdinal()
@@ -195,13 +202,6 @@ d3.csv("data/iris.csv").then((data) => {
   //TODO: Barchart with counts of different species
   {
     // Bar chart code here 
-
-  // Hardcoded barchart data
-  const databar = [
-  {species: 'setosa', count: 50},
-  {species: 'versicolor', count: 50},
-  {species: 'virginica', count: 50},
-];
 
   xKey3 = "species";
   yKey3 = "count";
