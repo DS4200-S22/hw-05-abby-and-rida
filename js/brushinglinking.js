@@ -39,14 +39,14 @@ d3.csv("data/iris.csv").then((data) => {
 
   // Scatterplot1
   {
-    let xKey1 = "Sepal_Length";
-    let yKey1 = "Petal_Length";
+    xKey1 = "Sepal_Length";
+    yKey1 = "Petal_Length";
 
     // Find max x
     let maxX1 = d3.max(data, (d) => { return d[xKey1]; });
 
     // Create X scale
-    let x1 = d3.scaleLinear()
+    x1 = d3.scaleLinear()
       .domain([0, maxX1])
       .range([margin.left, width - margin.right]);
 
@@ -67,7 +67,7 @@ d3.csv("data/iris.csv").then((data) => {
     let maxY1 = d3.max(data, (d) => { return d[yKey1]; });
 
     // Create Y scale
-    let y1 = d3.scaleLinear()
+    y1 = d3.scaleLinear()
       .domain([0, maxY1])
       .range([height - margin.bottom, margin.top]);
 
@@ -85,7 +85,7 @@ d3.csv("data/iris.csv").then((data) => {
       );
 
     // Add points
-    const myCircles1 = svg1.selectAll("circle")
+    myCircles1 = svg1.selectAll("circle")
       .data(data)
       .enter()
       .append("circle")
@@ -132,11 +132,11 @@ d3.csv("data/iris.csv").then((data) => {
     //TODO: Find coordinates of brushed region 
     // extent is an array holding the coordinates of each corner of a selection
     // [ (bottom left)[x1 , y1] , (top right)[x2 , y2] ]
-    extent = brushEvent.selection;
+    let extent = brushEvent.selection;
 
     //TODO: Give bold outline to all points within the brush region in Scatterplot1
-    //myCircles1.classed("brushed", (d) => isBrushed(extent, x1(d[xKey1]), y1(d[yKey1])));
-    // svg1.classed("brushed", function (d) { return isBrushed(extent, x1(d.xKey1), y1(d.yKey1)) })
+    myCircles1.classed("brushed", (d) => {return isBrushed(extent, x1(d[xKey1]), y1(d[yKey1]));})
+    //myCircles1.classed("brushed", function (d) { return isBrushed(extent, x1(d.xKey1), y1(d.yKey1)) })
 
     //TODO: Give bold outline to all points in Scatterplot2 corresponding to points within the brush region in Scatterplot1
 
