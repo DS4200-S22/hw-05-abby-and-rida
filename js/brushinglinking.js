@@ -22,9 +22,11 @@ let bars;
 //TODO: append svg object to the body of the page to house Scatterplot2 (call it svg2)
 const svg2 = d3.select("body")
   .append("svg")
+  .attr("class", "holder")
   .attr("width", width - margin.left - margin.right)
   .attr("height", height - margin.top - margin.bottom)
   .attr("viewBox", [0, 0, width, height]);
+
 
 //TODO: append svg object to the body of the page to house bar chart 
 
@@ -126,7 +128,7 @@ d3.csv("data/iris.csv").then((data) => {
       .range([margin.left, width - margin.right]);
 
     // Add x axis 
-    svg1.append("g")
+    svg2.append("g")
       .attr("transform", `translate(0,${height - margin.bottom})`)
       .call(d3.axisBottom(x2))
       .attr("font-size", '20px')
@@ -147,7 +149,7 @@ d3.csv("data/iris.csv").then((data) => {
       .range([height - margin.bottom, margin.top]);
 
     // Add y axis 
-    svg1.append("g")
+    svg2.append("g")
       .attr("transform", `translate(${margin.left}, 0)`)
       .call(d3.axisLeft(y2))
       .attr("font-size", '20px')
@@ -158,6 +160,28 @@ d3.csv("data/iris.csv").then((data) => {
         .attr("text-anchor", "end")
         .text(yKey2)
       );
+
+
+    // Add points
+    myCircles2 = svg2.selectAll("circle")
+      .data(data)
+      .enter()
+      .append("circle")
+      .attr("id", (d) => d.id)
+      .attr("cx", (d) => x2(d[xKey2]))
+      .attr("cy", (d) => y2(d[yKey2]))
+      .attr("r", 8)
+      .style("fill", (d) => color(d.Species))
+      .style("opacity", 0.5);
+
+    //TODO: Define a brush (call it brush1)
+    // Code modeled after https://www.d3-graph-gallery.com/graph/interactivity_brush.html
+    brush2 = d3.brush()
+      .extent([[0, 0], [width, height]])
+      .on("start brush", updateChart2)
+
+    //TODO: Add brush2 to svg2
+    svg2.call(brush2)
 
   }
 
@@ -192,6 +216,7 @@ d3.csv("data/iris.csv").then((data) => {
 
   // Call when Scatterplot2 is brushed 
   function updateChart2(brushEvent) {
+
 
     //TODO: Find coordinates of brushed region 
 

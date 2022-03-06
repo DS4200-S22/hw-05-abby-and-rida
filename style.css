@@ -10,3 +10,8 @@ body {
   stroke: black;
   stroke-width: 1px;
 }
+
+.holder {
+  width:  100%;
+  height: auto; 
+}
