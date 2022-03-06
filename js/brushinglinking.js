@@ -11,15 +11,15 @@ const svg1 = d3.select("#vis-holder")
   .attr("viewBox", [0, 0, width, height]);
 
 // Initialize brush for Scatterplot1 and points. We will need these to be global. 
-//TODO: Initialize brush for Scatterplot2 and points. We will need these to be global.
-//TODO: Initialize bars. We will need these to be global. 
+// Initialize brush for Scatterplot2 and points. We will need these to be global.
+// Initialize bars. We will need these to be global. 
 let brush1;
 let brush2;
 let myCircles1;
 let myCircles2;
 let bars;
 
-//TODO: append svg object to the body of the page to house Scatterplot2 (call it svg2)
+// append svg object to the body of the page to house Scatterplot2 (call it svg2)
 const svg2 = d3.select("body")
   .append("svg")
   .attr("class", "holder")
@@ -28,19 +28,19 @@ const svg2 = d3.select("body")
   .attr("viewBox", [0, 0, width, height]);
 
 
-//TODO: append svg object to the body of the page to house bar chart 
-  const svg3 = d3.select("body")
-    .append("svg")
-    .attr("class", "holder")
-    .attr("width", width-margin.left-margin.right)
-    .attr("height", height - margin.top - margin.bottom)
-    .attr("viewBox", [0, 0, width, height]);
+// append svg object to the body of the page to house bar chart 
+const svg3 = d3.select("body")
+  .append("svg")
+  .attr("class", "holder")
+  .attr("width", width - margin.left - margin.right)
+  .attr("height", height - margin.top - margin.bottom)
+  .attr("viewBox", [0, 0, width, height]);
 
 // Hardcoded barchart data
-  const databar = [
-  {species: 'setosa', count: 50},
-  {species: 'versicolor', count: 50},
-  {species: 'virginica', count: 50},
+const databar = [
+  { species: 'setosa', count: 50 },
+  { species: 'versicolor', count: 50 },
+  { species: 'virginica', count: 50 },
 ];
 
 
@@ -117,18 +117,18 @@ d3.csv("data/iris.csv").then((data) => {
       .style("fill", (d) => color(d.Species))
       .style("opacity", 0.5);
 
-    //TODO: Define a brush (call it brush1)
+    // Define a brush (call it brush1)
     // Code modeled after https://www.d3-graph-gallery.com/graph/interactivity_brush.html
     brush1 = d3.brush()
       .extent([[0, 0], [width, height]])
       .on("start brush", updateChart1)
 
-    //TODO: Add brush1 to svg1
+    // Add brush1 to svg1
     svg1.call(brush1)
 
   }
 
-  //TODO: Scatterplot 2 (show Sepal width on x-axis and Petal width on y-axis)
+  // Scatterplot 2 (show Sepal width on x-axis and Petal width on y-axis)
   {
     xKey2 = "Sepal_Width";
     yKey2 = "Petal_Width";
@@ -188,63 +188,63 @@ d3.csv("data/iris.csv").then((data) => {
       .style("fill", (d) => color(d.Species))
       .style("opacity", 0.5);
 
-    //TODO: Define a brush (call it brush1)
+    // Define a brush (call it brush2)
     // Code modeled after https://www.d3-graph-gallery.com/graph/interactivity_brush.html
     brush2 = d3.brush()
       .extent([[0, 0], [width, height]])
       .on("start brush", updateChart2)
 
-    //TODO: Add brush2 to svg2
+    // Add brush2 to svg2
     svg2.call(brush2)
 
   }
 
-  //TODO: Barchart with counts of different species
+  // Barchart with counts of different species
   {
     // Bar chart code here 
 
-  xKey3 = "species";
-  yKey3 = "count";
+    xKey3 = "species";
+    yKey3 = "count";
 
-  // TODO: Find the maximum y value provided within 'data1' by going through scores column
-  let maxY3 = d3.max(databar, function(d) { return d.count; });
+    // Find the maximum y value provided within 'databar' by going through scores column
+    let maxY3 = d3.max(databar, function (d) { return d.count; });
 
-  // TODO: For y value, lists what pixel value to plot, linearly scales data 
-  let yScale3 = d3.scaleLinear()
-              .domain([0,maxY3])
-              .range([height-margin.bottom,margin.top]); 
+    // For y value, lists what pixel value to plot, linearly scales data 
+    let yScale3 = d3.scaleLinear()
+      .domain([0, maxY3])
+      .range([height - margin.bottom, margin.top]);
 
-  // TODO: For x values, lists what pixel value to add to plot
-  let xScale3 = d3.scaleBand() // uses scaleBand rather than linearly scaling data
-              .domain(d3.range(databar.length))
-              .range([margin.left, width - margin.right])
-              .padding(0.1); 
+    // For x values, add bar plot scale
+    let xScale3 = d3.scaleBand() // uses scaleBand rather than linearly scaling data
+      .domain(d3.range(databar.length))
+      .range([margin.left, width - margin.right])
+      .padding(0.1);
 
-  // TODO: Adds the left y axis to the barchart by appending the axis to previously created svg
-  svg3.append("g")
-     .attr("transform", `translate(${margin.left}, 0)`) 
-     .call(d3.axisLeft(yScale3)) 
-     .attr("font-size", '20px'); 
+    // Adds the left y axis to the barchart by appending the axis to previously created svg
+    svg3.append("g")
+      .attr("transform", `translate(${margin.left}, 0)`)
+      .call(d3.axisLeft(yScale3))
+      .attr("font-size", '20px');
 
-  // TODO: Adds the x axis to the svg
-  svg3.append("g")
-      .attr("transform", `translate(0,${height - margin.bottom})`) 
+    // Adds the x axis to the svg
+    svg3.append("g")
+      .attr("transform", `translate(0,${height - margin.bottom})`)
       .call(d3.axisBottom(xScale3) // gives the x axis scale
-              .tickFormat(i => databar[i].species))  // use .tickformat to add specific labels to each tick mark
-      .attr("font-size", '20px'); 
+        .tickFormat(i => databar[i].species))  // use .tickformat to add specific labels to each tick mark
+      .attr("font-size", '20px');
 
 
-  svg3.selectAll(".bar") // select everything from the class bar for svg 1
-   .data(databar) // binds data to empty selection
-   .enter()  // makes a placeholder svg for each row in data1
-   .append("rect") // appends a rectangle to svg 1 for each row in databar
-     .attr("x", (d,i) => xScale3(i)) // setting x position for the rectangles based on the data and what row we are on
-     //, return x scale of the row we are on
-     .style("fill", (d) => color(d.species))
-     .attr("y", (d) => yScale3(d.count)) // setting y position based on yscale of the score
-     .attr("height", (d) => (height - margin.bottom) - yScale3(d.count)) // set height for the bars
-     .attr("width", xScale3.bandwidth()) // set width for the bars, bandwith allows d3 to go through number of categories and space and 
-     // choose appropriate bandwith
+    svg3.selectAll(".bar") // select everything from the class bar for svg 1
+      .data(databar) // binds data to empty selection
+      .enter()  // makes a placeholder svg for each row in data1
+      .append("rect") // appends a rectangle to svg 1 for each row in databar
+      .attr("x", (d, i) => xScale3(i)) // setting x position for the rectangles based on the data and what row we are on
+      //, return x scale of the row we are on
+      .style("fill", (d) => color(d.species))
+      .attr("y", (d) => yScale3(d.count)) // setting y position based on yscale of the score
+      .attr("height", (d) => (height - margin.bottom) - yScale3(d.count)) // set height for the bars
+      .attr("width", xScale3.bandwidth()) // set width for the bars, bandwith allows d3 to go through number of categories and space and 
+    // choose appropriate bandwith
 
 
   }
@@ -252,24 +252,24 @@ d3.csv("data/iris.csv").then((data) => {
   //Brushing Code---------------------------------------------------------------------------------------------
 
   // Call to removes existing brushes 
+  //TODO: FIX
   function clear() {
     svg1.call(brush1.move, null);
-
-    //TODO: add code to clear existing brush from svg2
+    svg2.call(brush2.move, null);
   }
 
   // Call when Scatterplot1 is brushed 
   function updateChart1(brushEvent) {
 
-    //TODO: Find coordinates of brushed region 
+    // Find coordinates of brushed region 
     // extent is an array holding the coordinates of each corner of a selection
     // [ (bottom left)[x1 , y1] , (top right)[x2 , y2] ]
     let extent = brushEvent.selection;
 
-    //TODO: Give bold outline to all points within the brush region in Scatterplot1
+    // Give bold outline to all points within the brush region in Scatterplot1
     myCircles1.classed("brushed", (d) => { return isBrushed(extent, x1(d[xKey1]), y1(d[yKey1])); })
 
-    //TODO: Give bold outline to all points in Scatterplot2 corresponding to points within the brush region in Scatterplot1
+    // Give bold outline to all points in Scatterplot2 corresponding to points within the brush region in Scatterplot1
     myCircles2.classed("brushed", (d) => { return isBrushed(extent, x1(d[xKey1]), y1(d[yKey1])); })
 
   }
@@ -277,19 +277,20 @@ d3.csv("data/iris.csv").then((data) => {
   // Call when Scatterplot2 is brushed 
   function updateChart2(brushEvent) {
 
-    //TODO: Find coordinates of brushed region 
+    // Find coordinates of brushed region 
     // extent is an array holding the coordinates of each corner of a selection
     // [ (bottom left)[x1 , y1] , (top right)[x2 , y2] ]
     let extent = brushEvent.selection;
 
-    //TODO: Start an empty set that you can store names of selected species in 
+    // Start an empty set that you can store names of selected species in 
     let species = []
 
-    //TODO: Give bold outline to all points within the brush region in Scatterplot2 & collected names of brushed species
+    // Give bold outline to all points within the brush region in Scatterplot2
+    // TODO: collected names of brushed species
     myCircles2.classed("brushed", (d) => { return isBrushed(extent, x2(d[xKey2]), y2(d[yKey2])); })
     // d["species"]
 
-    //TODO: Give bold outline to all points in Scatterplot1 corresponding to points within the brush region in Scatterplot
+    // Give bold outline to all points in Scatterplot1 corresponding to points within the brush region in Scatterplot
     myCircles1.classed("brushed", (d) => { return isBrushed(extent, x2(d[xKey2]), y2(d[yKey2])); })
 
     //TODO: Give bold outline to all bars in bar chart with corresponding to species selected by Scatterplot2 brush
