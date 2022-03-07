@@ -8,7 +8,7 @@ body {
 .brushed {
   opacity: 1 !important;
   stroke: black;
-  stroke-width: 1px;
+  stroke-width: 2px;
 }
 
 .holder {
