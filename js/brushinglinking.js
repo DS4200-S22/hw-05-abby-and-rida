@@ -123,12 +123,12 @@ d3.csv("data/iris.csv").then((data) => {
     brush1 = d3.brush()
       .extent([[0, 0], [width, height]])
       .on("start", clear)
-      .on("brush", updateChart1)
+      .on("brush", updateChart1);
 
     // Add brush1 to svg1
-    svg1.call(brush1)
+    svg1.call(brush1);
 
-  }
+  };
 
   // Scatterplot 2 (show Sepal width on x-axis and Petal width on y-axis)
   {
@@ -195,12 +195,12 @@ d3.csv("data/iris.csv").then((data) => {
     brush2 = d3.brush()
       .extent([[0, 0], [width, height]])
       .on("start", clear)
-      .on("brush", updateChart2)
+      .on("brush", updateChart2);
 
     // Add brush2 to svg2
-    svg2.call(brush2)
+    svg2.call(brush2);
 
-  }
+  };
 
   // Barchart with counts of different species
   {
@@ -237,20 +237,18 @@ d3.csv("data/iris.csv").then((data) => {
       .attr("font-size", '20px');
 
 
-    bars = svg3.selectAll(".bar") // select everything from the class bar for svg 1
-      .data(databar) // binds data to empty selection
-      .enter()  // makes a placeholder svg for each row in data1
-      .append("rect") // appends a rectangle to svg 1 for each row in databar
-      .attr("x", (d, i) => xScale3(i)) // setting x position for the rectangles based on the data and what row we are on
-      //, return x scale of the row we are on
+    bars = svg3.selectAll(".bar") 
+      .data(databar)
+      .enter()  
+      .append("rect") 
+      .attr("x", (d, i) => xScale3(i)) 
       .attr("id", (d) => d.species)
       .style("fill", (d) => color(d.species))
       .style("opacity", 0.5)
-      .attr("y", (d) => yScale3(d.count)) // setting y position based on yscale of the score
-      .attr("height", (d) => (height - margin.bottom) - yScale3(d.count)) // set height for the bars
-      .attr("width", xScale3.bandwidth()) // set width for the bars, bandwith allows d3 to go through number of categories and space and 
-    // choose appropriate bandwith
-  }
+      .attr("y", (d) => yScale3(d.count)) 
+      .attr("height", (d) => (height - margin.bottom) - yScale3(d.count))
+      .attr("width", xScale3.bandwidth());
+  };
 
   //Brushing Code---------------------------------------------------------------------------------------------
 
@@ -258,7 +256,7 @@ d3.csv("data/iris.csv").then((data) => {
   function clear() {
     svg1.call(d3.brush().clear);
     svg2.call(d3.brush().clear);
-  }
+  };
 
   // Call when Scatterplot1 is brushed 
   function updateChart1(brushEvent) {
@@ -273,7 +271,7 @@ d3.csv("data/iris.csv").then((data) => {
     // Give bold outline to all points in Scatterplot2 corresponding to points within the brush region in Scatterplot1
     myCircles2.classed("brushed", (d) => { return isBrushed(extent, x1(d[xKey1]), y1(d[yKey1])); })
 
-  }
+  };
 
   // Call when Scatterplot2 is brushed 
   function updateChart2(brushEvent) {
@@ -300,7 +298,7 @@ d3.csv("data/iris.csv").then((data) => {
         species.push(item);
       }
       return yes;
-    })
+    });
 
     // Give bold outline to all bars in bar chart with corresponding to species selected by Scatterplot2 brush
     d3.select("#setosa").classed("brushed", species.includes("setosa"));
@@ -308,7 +306,7 @@ d3.csv("data/iris.csv").then((data) => {
     d3.select("#virginica").classed("brushed", species.includes("virginica"));
 
     species = [];
-  }
+  };
 
   //Finds dots within the brushed region
   function isBrushed(brush_coords, cx, cy) {
@@ -319,5 +317,5 @@ d3.csv("data/iris.csv").then((data) => {
       y0 = brush_coords[0][1],
       y1 = brush_coords[1][1];
     return x0 <= cx && cx <= x1 && y0 <= cy && cy <= y1; // This return TRUE or FALSE depending on if the points is in the selected area
-  }
+  };
 });
