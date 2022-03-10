@@ -136,7 +136,7 @@ d3.csv("data/iris.csv").then((data) => {
     yKey2 = "Petal_Width";
 
     // Find max x
-    let maxX2 = d3.max(data, (d) => { return d[xKey2]; });
+    let maxX2 = d3.max(data, (d) => { return d[xKey2] });
 
     // Create X scale
     x2 = d3.scaleLinear()
@@ -157,7 +157,7 @@ d3.csv("data/iris.csv").then((data) => {
       );
 
     // Finx max y 
-    let maxY2 = d3.max(data, (d) => { return d[yKey2]; });
+    let maxY2 = d3.max(data, (d) => { return d[yKey2] });
 
     // Create Y scale
     y2 = d3.scaleLinear()
@@ -210,7 +210,7 @@ d3.csv("data/iris.csv").then((data) => {
     yKey3 = "count";
 
     // Find the maximum y value provided within 'databar' by going through scores column
-    let maxY3 = d3.max(databar, function (d) { return d.count; });
+    let maxY3 = d3.max(databar, function (d) { return d.count });
 
     // For y value, lists what pixel value to plot, linearly scales data 
     let yScale3 = d3.scaleLinear()
@@ -266,10 +266,10 @@ d3.csv("data/iris.csv").then((data) => {
     let extent = brushEvent.selection;
 
     // Give bold outline to all points within the brush region in Scatterplot1
-    myCircles1.classed("brushed", (d) => { return isBrushed(extent, x1(d[xKey1]), y1(d[yKey1])); })
+    myCircles1.classed("brushed", (d) => { return isBrushed(extent, x1(d[xKey1]), y1(d[yKey1])) });
 
     // Give bold outline to all points in Scatterplot2 corresponding to points within the brush region in Scatterplot1
-    myCircles2.classed("brushed", (d) => { return isBrushed(extent, x1(d[xKey1]), y1(d[yKey1])); })
+    myCircles2.classed("brushed", (d) => { return isBrushed(extent, x1(d[xKey1]), y1(d[yKey1])) });
 
   };
 
@@ -284,7 +284,7 @@ d3.csv("data/iris.csv").then((data) => {
     let species = [];
 
     // Give bold outline to all points within the brush region in Scatterplot2
-    myCircles2.classed("brushed", (d) => { return isBrushed(extent, x2(d[xKey2]), y2(d[yKey2])); })
+    myCircles2.classed("brushed", (d) => { return isBrushed(extent, x2(d[xKey2]), y2(d[yKey2])) });
 
 
 
